@@ -15,7 +15,9 @@
     <header>
         <div class="row">
             <div class="col-md-4 ml-3 mt-3">
-                <button type="button" class="btn btn-warning" id="highscore">View High Score Here</button>
+                <button type="button" class="btn btn-warning" id="highscoreView">View High Score Here</button>
+                <div id ="addInitials"></div>
+
             </div> 
             <div class="col-md-7 mt-3">
             <div class="text-right" id ="timer">Time Left:60 </div>
@@ -23,26 +25,28 @@
         </div>
     <!--Header End-->
     </header>
-    <!--Quiz Start Page Begin-->
+    <!--Start Page Begin-->
     <section class="p-5 mt-5" id="Start">
         <div class="container text-center">
             <h1>Coding Quiz Challenge!</h1>
             <h4 class="container mt-5">Welcome to my page! I would like to challange you to a timed quiz to test your knowledge. I will give
-                you 5 questions and 60 seconds total. For every wrong answer, 5 seconds will be removed. </h4>
+                you 4 questions and 60 seconds total. For every right answer, 5 seconds will be added. For every wrong answer, 10 seconds will be removed. </h4>
             <button class ="mt-5 btn btn-success" type="button" id="startbutton"> Click to Start! </button>
         </div>
     </section>
-    <!--Quiz Start Page End-->
+    <!-- Start Page End-->
 
-    <!--Question begin-->
-    <section class="text-center" id="question">
+    <!--Quiz begin-->
+    <section class="text-center" id="question"><p>Questions</p>
         <button id="choiceA"> A </button>
         <button id="choiceB"> B </button>
         <button id="choiceC"> C </button>
         <button id="choiceD"> D </button>
+        <button id="nextPage" class ="btn btn-success"> Next </button>
     </section>
-    <!--Question end-->
+    <!--Quiz end-->
 
+    </section>
     <!--Game Over Start-->
     <section>
         <div id="gameover">

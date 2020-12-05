@@ -1,30 +1,34 @@
 var startbutton = document.getElementById("startbutton");
-var highscore = document.getElementById("highscore");
+var highscoreView = document.getElementById("highscoreView");
+var addInitials = document.getElementById("addInitials")
 var timer = document.getElementById("timer");
-var questions = document.getElementById("question");
+var questionS = document.getElementById("question");
 var choiceA = document.getElementById("choiceA")
 var choiceB = document.getElementById("choiceB");
 var choiceC = document.getElementById("choiceC");
 var choiceD = document.getElementById("choiceD");
+var nextPage = document.getElementById("nextPage")
 var startPage = document.getElementById("Start")
 
-var timecount = 60
-var settimerInterval
 
-questions.style.display= "none"
+var timecount = 60
+var score = 0
+var questionCounter = 0
+var availableQuestions = []
+var settimerInterval
 
 
 //Questions pulled from W3 and tutorialspoint.com//
-questions = [
+var questionDisplay = [
     {
         question: "Which HTML element do we put for JavaScript?",
         answers: {
             a: '<scripting>',
             b: '<javascript>',
-            c: '<js>',
-            d: '<script>',
+            c: '<script>',
+            d: '<js>',
         },
-            correctAnswer: 'd'
+        correctAnswer: 'c'
     },
     {
         question: "Which of the following function of String object executes the search for a match between a regular expression and a specified string?",
@@ -34,17 +38,17 @@ questions = [
             c: 'replace()',
             d: 'search()',
         },
-            correctAnswer: 'd'
+        correctAnswer: 'd'
     },
     {
         question: " Which of the following function of Array objects sorts the element of an array?",
         answers: {
-            a: 'toSource()',
-            b: 'sort()',
+            a: 'sort()',
+            b: 'toSource()',
             c: 'toString()',
             d: 'unshift()',
         },
-        correctAnswer: 'b'
+        correctAnswer: 'a'
     },
     {
         question: "Which of the following type of variable is visible only within a function where it is defined?",
@@ -55,29 +59,65 @@ questions = [
             d: 'None of the above',
         },
         correctAnswer: 'b'
+
     },
 ];
 
+//const totalPoints = 100
+//const totalQuestions = 4
 
 
-function beginQuiz() {
+function beginTimer() {
     startbutton.style.display = "none"
     startPage.style.display = "none"
 
-    settimerInterval = setInterval(function(){
+    settimerInterval = setInterval(function () {
         timecount--;
-        timer.textContent  = "Time Left:" + timecount;
+        timer.textContent = "Time Left:" + timecount;
+
 
         if (timecount === 0) {
-            clearInterval
+            clearInterval(settimerInterval)
+            alert("Time is up!")
+            finalScore();
         }
-
     }, 1000
-    )}
-
-function beginQuestions() {
-    
-    
+    )
 }
 
-startbutton.addEventListener("click",beginQuiz)
+function beginQuestions() {
+    beginTimer();
+
+    if (answers === correctAnswer) {
+        timecount++
+    }
+    else (answers != correctAnswer); {
+        timecount--
+    }
+}
+
+
+var finalquestionIndex = questionDisplay.length - 1;
+var currentquestionIndex = 0;
+
+
+function generateQuestion() {
+    if (currentquestionIndex === finalquestionIndex) {
+        return finalScore()
+    }
+
+    var currentQuestion = questionDisplay[currentquestionIndex];
+    questionS.innerHTML = "<p>" + currentQuestion.question + "</p>";
+    choiceA.innerHTML = currentQuestion.a;
+    choiceB.innerHTML = currentQuestion.b;
+    choiceC.innerHTML = currentQuestion.c;
+    choiceD.innerHTML = currentQuestion.d;
+}
+
+
+function finalScore() {
+    questionDisplay.style.display = "none"
+    clearInterval(settimerInterval)
+}
+
+startbutton.addEventListener("click", beginTimer)
