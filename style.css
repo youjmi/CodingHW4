@@ -1,0 +1,27 @@
+body {
+padding: 0;
+margin: 0;
+justify-content: center;
+align-items: center;
+}
+
+
+#question-container{
+    padding: 10px;
+    margin: 50px;
+    width: 800px;
+    max-width: 80%;
+    border-radius: 5px;
+    text-align: center;
+    
+    
+}
+
+#question-btn{
+    display: grid;
+    gap: 20px
+}
+
+.hide{
+    display: none;
+}

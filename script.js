@@ -1,15 +1,17 @@
 var startbutton = document.getElementById("startbutton");
+var nexttbutton = document.getElementById("nextPage")
 var highscoreView = document.getElementById("highscoreView");
 var addInitials = document.getElementById("addInitials")
 var timer = document.getElementById("timer");
+var questionContainer = document.getElementById("question-container")
 var questionS = document.getElementById("question");
 var choiceA = document.getElementById("choiceA")
 var choiceB = document.getElementById("choiceB");
 var choiceC = document.getElementById("choiceC");
-var choiceD = document.getElementById("choiceD");
-var nextPage = document.getElementById("nextPage")
+var choiceD = document.getElementById("choiceD")
 var startPage = document.getElementById("Start")
-
+var btnContainer = document.getElementById("question-btn")
+var Button = document.querySelectorAll(".btn")
 
 var timecount = 60
 var score = 0
@@ -17,6 +19,7 @@ var questionCounter = 0
 var availableQuestions = []
 var settimerInterval
 
+var currentQuestionindex = 0
 
 //Questions pulled from W3 and tutorialspoint.com//
 var questionDisplay = [
@@ -28,7 +31,7 @@ var questionDisplay = [
             c: '<script>',
             d: '<js>',
         },
-        correctAnswer: 'c'
+        correctAnswer: '<script>'
     },
     {
         question: "Which of the following function of String object executes the search for a match between a regular expression and a specified string?",
@@ -38,7 +41,7 @@ var questionDisplay = [
             c: 'replace()',
             d: 'search()',
         },
-        correctAnswer: 'd'
+        correctAnswer: 'search()' //change
     },
     {
         question: " Which of the following function of Array objects sorts the element of an array?",
@@ -48,7 +51,7 @@ var questionDisplay = [
             c: 'toString()',
             d: 'unshift()',
         },
-        correctAnswer: 'a'
+        correctAnswer: 'sort()' //change
     },
     {
         question: "Which of the following type of variable is visible only within a function where it is defined?",
@@ -58,7 +61,7 @@ var questionDisplay = [
             c: 'Both of the Above',
             d: 'None of the above',
         },
-        correctAnswer: 'b'
+        correctAnswer: 'Local Variable'
 
     },
 ];
@@ -66,17 +69,30 @@ var questionDisplay = [
 //const totalPoints = 100
 //const totalQuestions = 4
 
+startbutton.addEventListener("click", beginQuiz)
+choiceA.addEventListener("click", chooseAnswer)
+choiceB.addEventListener("click", chooseAnswer)
+choiceC.addEventListener("click", chooseAnswer)
+choiceD.addEventListener("click", chooseAnswer)
+nexttbutton.addEventListener("click",() => {
+    currentQuestionindex ++
+    generateQuestions()
+})
 
-function beginTimer() {
+function beginQuiz() {
+    beginTimer()
     startbutton.style.display = "none"
     startPage.style.display = "none"
+    questionContainer.style.display = "block"
+    currentQuestionindex = 0
+    generateQuestions();
+}
 
+function beginTimer() {
     settimerInterval = setInterval(function () {
         timecount--;
         timer.textContent = "Time Left:" + timecount;
-
-
-        if (timecount === 0) {
+        if (timecount < 1) {
             clearInterval(settimerInterval)
             alert("Time is up!")
             finalScore();
@@ -85,39 +101,34 @@ function beginTimer() {
     )
 }
 
-function beginQuestions() {
-    beginTimer();
+function generateQuestions() {
+    showQuestion(questionDisplay[currentQuestionindex])
+}
 
-    if (answers === correctAnswer) {
-        timecount++
-    }
-    else (answers != correctAnswer); {
-        timecount--
-    }
+function showQuestion(question) {
+    console.log(question)
+    questionS.innerText = question.question
+    choiceA.innerText = question.answers.a
+    choiceB.innerText = question.answers.b
+    choiceC.innerText = question.answers.c
+    choiceD.innerText = question.answers.d
+
 }
 
 
-var finalquestionIndex = questionDisplay.length - 1;
-var currentquestionIndex = 0;
+function chooseAnswer(e) {
+    var currentquestion = questionDisplay[currentQuestionindex]
+    var selectChoice = e.target.textContent
 
-
-function generateQuestion() {
-    if (currentquestionIndex === finalquestionIndex) {
-        return finalScore()
+    if (selectChoice == currentquestion.correctAnswer) {
+        timecount += 10
     }
-
-    var currentQuestion = questionDisplay[currentquestionIndex];
-    questionS.innerHTML = "<p>" + currentQuestion.question + "</p>";
-    choiceA.innerHTML = currentQuestion.a;
-    choiceB.innerHTML = currentQuestion.b;
-    choiceC.innerHTML = currentQuestion.c;
-    choiceD.innerHTML = currentQuestion.d;
+    else {
+        timecount -= 10
+    }
+    nexttbutton.style.display="block"
 }
 
+function finalScore() { }
 
-function finalScore() {
-    questionDisplay.style.display = "none"
-    clearInterval(settimerInterval)
-}
 
-startbutton.addEventListener("click", beginTimer)
