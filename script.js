@@ -13,6 +13,7 @@ var startPage = document.getElementById("Start")
 var btnContainer = document.getElementById("question-btn")
 var Button = document.querySelectorAll(".btn")
 var hSbutton = document.getElementById("hSbutton")
+var Submit = document.getElementById("Submit")
 
 
 
@@ -36,7 +37,7 @@ var questionDisplay = [
             c: 'replace()',
             d: 'search()',
         },
-        correctAnswer: 'search()' //change
+        correctAnswer: 'search()' 
     },
     {
         question: " Which of the following function of Array objects sorts the element of an array?",
@@ -46,7 +47,7 @@ var questionDisplay = [
             c: 'toString()',
             d: 'unshift()',
         },
-        correctAnswer: 'sort()' //change
+        correctAnswer: 'sort()' 
     },
     {
         question: "Which of the following type of variable is visible only within a function where it is defined?",
@@ -98,15 +99,15 @@ function beginTimer() {
         if (timecount === 0) {
             clearInterval(settimerInterval)
             alert("Time is up!")
+            questionContainer.style.display ="none"
+            Submit.style.display ="block"
+            finalScore()
         }
     }, 1000);
 }
 
 function generateQuestions() {
     showQuestion(questionDisplay[currentQuestionindex])
-    if (currentQuestionindex === finalQuestionIndex){
-        finalScore()
-    }
 }
 
 function showQuestion(question) {
@@ -121,22 +122,28 @@ function showQuestion(question) {
 
 
 function chooseAnswer(e) {
+    nexttbutton.style.display="block"
     var currentquestion = questionDisplay[currentQuestionindex]
     var selectChoice = e.target.textContent
     if (selectChoice === currentquestion.correctAnswer) {
         timecount += 10
         score++
     }
-    else
+    else (selectChoice !== currentquestion.correctAnswer)
     {
         timecount -= 10
         score--
     }
-    nexttbutton.style.display="block"
     finalScore()
 }
 
-function finalScore(){}
+
+function finalScore(){    
+
+}
+
+
+
     
 
 
