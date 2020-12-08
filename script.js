@@ -12,14 +12,9 @@ var choiceD = document.getElementById("choiceD")
 var startPage = document.getElementById("Start")
 var btnContainer = document.getElementById("question-btn")
 var Button = document.querySelectorAll(".btn")
+var hSbutton = document.getElementById("hSbutton")
 
-var timecount = 60
-var score = 0
-var questionCounter = 0
-var availableQuestions = []
-var settimerInterval
 
-var currentQuestionindex = 0
 
 //Questions pulled from W3 and tutorialspoint.com//
 var questionDisplay = [
@@ -66,16 +61,24 @@ var questionDisplay = [
     },
 ];
 
+
+var timecount = 60
+var finalQuestionIndex = questionDisplay.length
+var score = 0
+var questionCounter = 0
+var availableQuestions = []
+var settimerInterval
+var currentQuestionindex = 0
 //const totalPoints = 100
 //const totalQuestions = 4
 
 startbutton.addEventListener("click", beginQuiz)
 choiceA.addEventListener("click", chooseAnswer)
 choiceB.addEventListener("click", chooseAnswer)
-choiceC.addEventListener("click", chooseAnswer)
+choiceC.addEventListener("click", chooseAnswer) 
 choiceD.addEventListener("click", chooseAnswer)
 nexttbutton.addEventListener("click",() => {
-    currentQuestionindex ++
+    currentQuestionindex++
     generateQuestions()
 })
 
@@ -92,17 +95,18 @@ function beginTimer() {
     settimerInterval = setInterval(function () {
         timecount--;
         timer.textContent = "Time Left:" + timecount;
-        if (timecount < 1) {
+        if (timecount === 0) {
             clearInterval(settimerInterval)
             alert("Time is up!")
-            finalScore();
         }
-    }, 1000
-    )
+    }, 1000);
 }
 
 function generateQuestions() {
     showQuestion(questionDisplay[currentQuestionindex])
+    if (currentQuestionindex === finalQuestionIndex){
+        finalScore()
+    }
 }
 
 function showQuestion(question) {
@@ -119,16 +123,21 @@ function showQuestion(question) {
 function chooseAnswer(e) {
     var currentquestion = questionDisplay[currentQuestionindex]
     var selectChoice = e.target.textContent
-
-    if (selectChoice == currentquestion.correctAnswer) {
+    if (selectChoice === currentquestion.correctAnswer) {
         timecount += 10
+        score++
     }
-    else {
+    else
+    {
         timecount -= 10
+        score--
     }
     nexttbutton.style.display="block"
+    finalScore()
 }
 
-function finalScore() { }
+function finalScore(){}
+    
+
 
 
