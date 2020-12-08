@@ -1,6 +1,6 @@
 var startbutton = document.getElementById("startbutton");
 var nexttbutton = document.getElementById("nextPage")
-var highscoreView = document.getElementById("highscoreView");
+var highscoreView = document.getElementById("highscorebutton");
 var addInitials = document.getElementById("addInitials")
 var timer = document.getElementById("timer");
 var questionContainer = document.getElementById("question-container")
@@ -14,6 +14,7 @@ var btnContainer = document.getElementById("question-btn")
 var Button = document.querySelectorAll(".btn")
 var hSbutton = document.getElementById("hSbutton")
 var Submit = document.getElementById("Submit")
+var viewHighscore = document.getElementById("viewHighScore")
 
 
 
@@ -70,8 +71,6 @@ var questionCounter = 0
 var availableQuestions = []
 var settimerInterval
 var currentQuestionindex = 0
-//const totalPoints = 100
-//const totalQuestions = 4
 
 startbutton.addEventListener("click", beginQuiz)
 choiceA.addEventListener("click", chooseAnswer)
@@ -96,12 +95,20 @@ function beginTimer() {
     settimerInterval = setInterval(function () {
         timecount--;
         timer.textContent = "Time Left:" + timecount;
-        if (timecount === 0) {
+        if (timecount === 0 || timecount <=0) {
             clearInterval(settimerInterval)
             alert("Time is up!")
-            questionContainer.style.display ="none"
+            questionContainer.style.display = "none"
             Submit.style.display ="block"
-            finalScore()
+            timer.style.display="none"
+            viewHighscore.style.display ="block"    
+        }
+        else if (currentQuestionindex === 4){
+            clearInterval(settimerInterval)
+            questionContainer.style.display = "none"
+            Submit.style.display ="block"
+            timer.style.display="none" 
+            viewHighscore.style.display ="block"
         }
     }, 1000);
 }
@@ -127,19 +134,21 @@ function chooseAnswer(e) {
     var selectChoice = e.target.textContent
     if (selectChoice === currentquestion.correctAnswer) {
         timecount += 10
-        score++
+        score+=25
     }
-    else (selectChoice !== currentquestion.correctAnswer)
+    else
     {
         timecount -= 10
-        score--
+        if (score > 0){
+            score -=25
+        }
     }
     finalScore()
 }
 
 
-function finalScore(){    
-
+function finalScore(){  
+    viewHighscore.textContent = "Your Score is: " + score
 }
 
 
