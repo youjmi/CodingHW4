@@ -59,7 +59,37 @@ var questionDisplay = [
             d: 'None of the above',
         },
         correctAnswer: 'Local Variable'
+    },
+    {
+        question: "Which of the following jQuery method loads a remote page using an HTTP request?",
+        answers: {
+            a: 'jQuery.ajax(options)',
+            b: 'jQuery.ajaxSetup(options',
+            c: 'serialize()',
+            d: 'serializeArray()',
 
+        },
+        correctAnswer:'jQuery.ajax(options)'
+    },
+    {
+        question: "Which of the following function of Array object creates a new array with the results of calling a provided function on every element in this array?",
+        answers: {
+            a: 'push()',
+            b: 'join()',
+            c: 'pop()',
+            d: 'map()',
+        },
+        correctAnswer: 'map()'
+    },
+    {
+        question: "Which of the following function of String object causes a string to be displayed as a subscript, as if it were in a <sub> tag?",
+        answers: {
+            a: 'sup()',
+            b: 'small()',
+            c: 'strike()',
+            d: 'sub()',
+        },
+        correctAnswer: 'sub()'
     },
 ];
 
@@ -87,6 +117,7 @@ function beginQuiz() {
     startbutton.style.display = "none"
     startPage.style.display = "none"
     questionContainer.style.display = "block"
+    viewHighscore.style.display ="block"   
     currentQuestionindex = 0
     generateQuestions();
 }
@@ -101,14 +132,14 @@ function beginTimer() {
             questionContainer.style.display = "none"
             Submit.style.display ="block"
             timer.style.display="none"
-            viewHighscore.style.display ="block"    
+             
         }
-        else if (currentQuestionindex === 4){
+        else if (currentQuestionindex === 7){
             clearInterval(settimerInterval)
             questionContainer.style.display = "none"
             Submit.style.display ="block"
             timer.style.display="none" 
-            viewHighscore.style.display ="block"
+            
         }
     }, 1000);
 }
