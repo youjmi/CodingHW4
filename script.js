@@ -15,6 +15,7 @@ var Button = document.querySelectorAll(".btn")
 var hSbutton = document.getElementById("hSbutton")
 var Submit = document.getElementById("Submit")
 var viewHighscore = document.getElementById("viewHighScore")
+var answerResponse = document.getElementById("answerResponse")
 
 
 
@@ -103,10 +104,10 @@ var settimerInterval
 var currentQuestionindex = 0
 
 startbutton.addEventListener("click", beginQuiz)
-choiceA.addEventListener("click", chooseAnswer)
-choiceB.addEventListener("click", chooseAnswer)
-choiceC.addEventListener("click", chooseAnswer) 
-choiceD.addEventListener("click", chooseAnswer)
+choiceA.addEventListener("click", chooseAnswer,)
+choiceB.addEventListener("click", chooseAnswer,)
+choiceC.addEventListener("click", chooseAnswer,) 
+choiceD.addEventListener("click", chooseAnswer,)
 nexttbutton.addEventListener("click",() => {
     currentQuestionindex++
     generateQuestions()
@@ -117,6 +118,7 @@ function beginQuiz() {
     startbutton.style.display = "none"
     startPage.style.display = "none"
     questionContainer.style.display = "block"
+    answerResponse.style.display = "block"
     viewHighscore.style.display ="block"   
     currentQuestionindex = 0
     generateQuestions();
@@ -166,10 +168,13 @@ function chooseAnswer(e) {
     if (selectChoice === currentquestion.correctAnswer) {
         timecount += 10
         score+=25
+        answerResponse.innerText = "That is Correct! 10 seconds added."
     }
     else
     {
         timecount -= 10
+        answerResponse.innerText = "That is Wrong! 10 seconds deducted"
+       
         if (score > 0){
             score -=25
         }
@@ -177,9 +182,16 @@ function chooseAnswer(e) {
     finalScore()
 }
 
+Submit.addEventListener("click", finalScore())
 
 function finalScore(){  
     viewHighscore.textContent = "Your Score is: " + score
+
+    if (addInitials.value === "") {
+    answerResponse.innerText = "Please do not leave blank. Put your initials!"
+
+    }
+
 }
 
 
