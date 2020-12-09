@@ -182,7 +182,7 @@ function chooseAnswer(e) {
     finalScore()
 }
 
-Submit.addEventListener("click", finalScore())
+//Submit.addEventListener("click", finalScore())
 
 
 function finalScore(){  
