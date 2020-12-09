@@ -184,13 +184,11 @@ function chooseAnswer(e) {
 
 Submit.addEventListener("click", finalScore())
 
+
 function finalScore(){  
     viewHighscore.textContent = "Your Score is: " + score
 
-    if (addInitials.value === "") {
-    answerResponse.innerText = "Please do not leave blank. Put your initials!"
 
-    }
 
 }
 
